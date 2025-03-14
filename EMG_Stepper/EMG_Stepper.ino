@@ -9,26 +9,29 @@
 // Miscellaneous Initialization
 int count_ind = 0;
 int count_avg = 0;
-const int emg_interval = 2;      // In milisecs
-static int stepper_interval = 0; // In milisecs
+const int emg_interval = 2;    // In milisecs
+int stepper_interval = 0;      // In milisecs
+bool stepper_updated = false;
+
+uint32_t current_time = 0;
 uint32_t prev_emg_time = 0;
 uint32_t prev_stepper_time = 0;
-static int motor_max = 1;
+
+int motor_max = 1;
 const int motor_min = 20;
-const int timer_interval = 30;   // In milisecs
 
 const int one_sec_size = 1000 / emg_interval; // One second of reading
-static uint32_t sum_one_sec = 0;
-static uint32_t avg_one_sec[2] = {0, 0};
+uint32_t sum_one_sec = 0;
+uint32_t avg_one_sec[2] = {0, 0};
 
-const int baseline_size = one_sec_size * 5;    // Five seconds of reading
+const int baseline_size = one_sec_size * 5;   // Five seconds of reading
 bool baseline_read = false;
-static int avg_baseline[2] = {0, 0};
+int avg_baseline[2] = {0, 0};
 
-const int max_emg_size = one_sec_size * 5;        // Five seconds of reading
+const int max_emg_size = one_sec_size * 5;    // Five seconds of reading
 bool is_max = true;
-static int new_max[2] = {0, 0};
-static int emg_max[2] = {0, 0};
+int new_max[2] = {0, 0};
+int emg_max[2] = {0, 0};
 
 
 // EMG initialization
@@ -109,7 +112,7 @@ void setup() {
 
 void loop() {
   static int which_contraction = 0;
-  uint32_t current_time = millis();
+  current_time = millis();
 
   // Read and filter EMG
   if (current_time - prev_emg_time >= emg_interval)
@@ -183,13 +186,7 @@ void loop() {
   // Start Motor
   if (count_avg == one_sec_size)
   {
-    LED_indicator(is_max); // Light indicator to begin
-
-    if (!(avg_one_sec[0] == avg_baseline[0] && avg_one_sec[1] == avg_baseline[1]))
     which_contraction = max(avg_one_sec[0], avg_one_sec[1]);
-    // TODO: CHANGE TO "ALWAYS TAKE IN NEW COMMANDS AND RESET TIMER (30ms) EACH TIME. IF NO NEW COMMANDS, AFTER TIMER ENDS, STOP."
-    stepper_interval = (which_contraction == avg_one_sec[0]) ? map(which_contraction, avg_baseline[0], emg_max[0], motor_min, motor_max) : map(which_contraction, avg_baseline[1], emg_max[1], motor_min, motor_max);
-
     if (current_time - prev_stepper_time >= stepper_interval)
     {
       prev_stepper_time = current_time;
@@ -197,8 +194,17 @@ void loop() {
       digitalWrite(IN2, halfStepSeq[step_ind][1]);
       digitalWrite(IN3, halfStepSeq[step_ind][2]);
       digitalWrite(IN4, halfStepSeq[step_ind][3]);
-      // Test whether negative modulo works or not
       step_ind = (contraction == avg_one_sec[0]) ? (step_ind + 1) % 8 : (step_ind - 1 + 8) % 8;
+      stepper_interval = (which_contraction == avg_one_sec[0]) ? map(which_contraction, avg_baseline[0], emg_max[0], motor_min, motor_max) : map(which_contraction, avg_baseline[1], emg_max[1], motor_min, motor_max);
+
+      // Alternative method using the if statement below (stepper_updated updates and this if statement has the additional condition, !stepper_update).
+      // stepper_updated = true;
     }
+
+    // if (stepper_updated)
+    // {
+    //   stepper_interval = (which_contraction == avg_one_sec[0]) ? map(which_contraction, avg_baseline[0], emg_max[0], motor_min, motor_max) : map(which_contraction, avg_baseline[1], emg_max[1], motor_min, motor_max);
+    //   stepper_updated = false;
+    // }
   }
 }
