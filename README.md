@@ -1,18 +1,6 @@
 # EMG-Controlled-Stepper-Motor
 This code will be uploaded onto an Arduino to collect EMG data to control a stepper motor.
 
-## Files
-* **EMG_Stepper** - The file includes the dynamic thresholding and direction discrimination features.
-* **EMG_Stepper_Simplified** - The file includes a set thresholding and direction discrimination features.
-* **EMG_Stepper_simple** - The file includes no thresholding and only a direction discrimination feature.
-
-### Key Variables
-* **emg_interval** - Determines the sampling rate of EMG recording.
-* **motor_max** - Determines the maximum speed of the stepper motor (Recommended absolute value of 1, at ~29 rpm).
-* **motor_min** - Determines the minimum speed of the stepper motor (Recommended absolute minimum of 50, at ~15 rpm).
-* **baseline** - Determines the baseline or minimum EMG value set by the user.
-* **emg_max** - Determines the maximum amg value set by the user.
-
 ## Description
 ### EMG_Stepper
 * This setup and code will collect EMG data from two points corresponding to a flexor and extensor muscle (any) and threshold the user's baseline and maximum EMG values to dynamically control the stepper motor rotational speed, as well as direction discrimination. 
@@ -30,6 +18,18 @@ This code will be uploaded onto an Arduino to collect EMG data to control a step
 * Immediately after the program runs, it will start collecting EMG data until one second's worth of data is read.
 * The LED within this duration is turned off.
 * Afterwards, the LED will turn on entirely. This is an indication to the user that they can now use the setup and control the direction of the stepper motor using their muscles.
+
+## Files
+* **EMG_Stepper** - The file includes the dynamic thresholding and direction discrimination features.
+* **EMG_Stepper_Simplified** - The file includes a set thresholding and direction discrimination features.
+* **EMG_Stepper_simple** - The file includes no thresholding and only a direction discrimination feature.
+
+### Key Variables
+* **emg_interval** - Determines the sampling rate of EMG recording.
+* **motor_max** - Determines the maximum speed of the stepper motor (Recommended absolute value of 1, at ~29 rpm).
+* **motor_min** - Determines the minimum speed of the stepper motor (Recommended absolute minimum of 50, at ~15 rpm).
+* **baseline** - Determines the baseline or minimum EMG value set by the user.
+* **emg_max** - Determines the maximum amg value set by the user.
 
 ## Below is a diagram of the circuit used and setup
 [![Circuit Diagram](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Circuit.png)](https://github.com/Detadja)
