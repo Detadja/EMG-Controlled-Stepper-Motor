@@ -70,7 +70,7 @@ void LED_indicator(bool is_max)
   {
     digitalWrite(LED, LOW);
     digitalWrite(LED, HIGH);
-    delay(100);
+    delay(500);
     digitalWrite(LED, LOW);
   }
   else 
@@ -168,6 +168,7 @@ void loop() {
   }
   else if (!baseline_read) // Captures the baseline activity for 5 seconds
   {
+    digitalWrite(LED, LOW);
     avg_baseline[0] += filterd_emg[0];
     avg_baseline[1] += filterd_emg[1];
     count_ind++;
@@ -194,7 +195,7 @@ void loop() {
       digitalWrite(IN2, halfStepSeq[step_ind][1]);
       digitalWrite(IN3, halfStepSeq[step_ind][2]);
       digitalWrite(IN4, halfStepSeq[step_ind][3]);
-      step_ind = (contraction == avg_one_sec[0]) ? (step_ind + 1) % 8 : (step_ind - 1 + 8) % 8;
+      step_ind = (which_contraction == avg_one_sec[0]) ? (step_ind + 1) % 8 : (step_ind - 1 + 8) % 8;
       stepper_interval = (which_contraction == avg_one_sec[0]) ? map(which_contraction, avg_baseline[0], emg_max[0], motor_min, motor_max) : map(which_contraction, avg_baseline[1], emg_max[1], motor_min, motor_max);
 
       // Alternative method using the if statement below (stepper_updated updates and this if statement has the additional condition, !stepper_update).
