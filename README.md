@@ -33,4 +33,4 @@ This code will be uploaded onto an Arduino to collect EMG data to control a step
 Clone the repo to a local repo on your computer. Compile and run on the Arduino IDE, while connected to the Arduino UNO.
 
 ## Demo
-[![Demo](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Demo.mp4)]
+[Demo](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Demo.mp4)
