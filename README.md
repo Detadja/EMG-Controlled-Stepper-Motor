@@ -31,7 +31,7 @@ This code will be uploaded onto an Arduino to collect EMG data to control a step
 * **baseline** - Determines the baseline or minimum EMG value set by the user.
 * **emg_max** - Determines the maximum amg value set by the user.
 
-## Below is a diagram of the circuit used and setup
+## Circuit and Setup
 [![Circuit Diagram](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Circuit.png)](https://github.com/Detadja)
 [![Setup Diagram 1](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Setup%201.jpg)](https://github.com/Detadja)
 [![Setup Diagram 1](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Setup%202.jpg)](https://github.com/Detadja)
