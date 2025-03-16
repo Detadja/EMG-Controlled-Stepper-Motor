@@ -27,7 +27,7 @@ This code will be uploaded onto an Arduino to collect EMG data to control a step
 ### Key Variables
 * **emg_interval** - Determines the sampling rate of EMG recording.
 * **motor_max** - Determines the maximum speed of the stepper motor (Recommended absolute value of 1, at ~29 rpm).
-* **motor_min** - Determines the minimum speed of the stepper motor (Recommended absolute minimum of 50, at ~15 rpm).
+* **motor_min** - Determines the minimum speed of the stepper motor (Recommended absolute minimum of 20, at ~1.46 rpm).
 * **baseline** - Determines the baseline or minimum EMG value set by the user.
 * **emg_max** - Determines the maximum amg value set by the user.
 
