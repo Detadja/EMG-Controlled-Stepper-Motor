@@ -16,14 +16,14 @@ uint32_t prev_emg_time = 0;
 uint32_t prev_stepper_time = 0;
 
 int motor_max = 1;
-const int motor_min = 20;
+const int motor_min = 15;
 
-const int one_sec_size = 1000 / emg_interval; // One second of reading
+const int one_sec_size = 500 / emg_interval; // One second of reading
 uint32_t sum_one_sec[2] = {0, 0};
 uint32_t avg_one_sec[2] = {0, 0};
 
 int baseline[2] = {0, 0};
-int emg_max[2] = {250, 120};
+const int emg_max[2] = {115, 90};
 
 
 // EMG initialization
@@ -58,16 +58,19 @@ void HPF (int index)
 
 int running_avg(float emg_val, int index)
 {
+  int avg = 0;
   sum_one_sec[index] += emg_val;
   count_avg[index]++;
 
   if (count_avg[index] > one_sec_size)
   {
+    avg = sum_one_sec[index] / count_avg[index];
     sum_one_sec[index] -= (sum_one_sec[index] / one_sec_size);
     count_avg[index] = one_sec_size;
+    return avg;
   }
 
-  return sum_one_sec[index] / count_avg[index];
+  return 0;
 }
 
 // Main
@@ -110,7 +113,7 @@ void loop() {
   avg_one_sec[1] = running_avg(filterd_emg[1], 1);
   // Serial.print(avg_one_sec[0]);
   // Serial.print(',');
-  // Serial.print(avg_one_sec[1]);
+  // Serial.println(avg_one_sec[1]);
 
   // Start Motor
   if (count_avg[0] == one_sec_size && count_avg[1] == one_sec_size)
