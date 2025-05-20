@@ -53,4 +53,4 @@ Clone the repo to a local repo on your computer. Compile and run on the Arduino 
 
 ## Demo
 ### EMG_Stepper_Simplified
-[Demo](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Demo.mp4)
+[![Demo](https://github.com/Detadja/EMG-Controlled-Stepper-Motor/blob/main/EMG%20Stepper%20Setup%201.jpg)](https://youtu.be/PTtSQuv9BLs "EMG Stepper Demo")
